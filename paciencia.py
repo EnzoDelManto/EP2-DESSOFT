@@ -41,3 +41,10 @@ def lista_movimentos_possiveis(baralho, i):
         if extrai_naipe(ct) == extrai_naipe(ant3) or extrai_valor(ct) == extrai_valor(ant3):
             movs.append(3)
     return movs
+
+def empilha(lista, i_ori, i_des):
+    y = lista[i_ori]
+    lista.remove(y)
+    lista.remove(lista[i_des])
+    lista.insert(i_des, y)
+    return lista
