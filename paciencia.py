@@ -9,3 +9,9 @@ def extrai_naipe(carta):
         return carta[1]
     else:
         return carta[2]
+
+def extrai_valor(carta):
+    if len(carta) == 2:
+        return carta[0]
+    else:
+        return carta[0] + carta[1]
