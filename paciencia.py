@@ -104,7 +104,7 @@ while len(baralho) > 1 and possui_movimentos_possiveis(baralho) != False:
         verifica = lista_movimentos_possiveis(baralho,indice2)
 
     if verifica == [1]:
-        empilha(baralho, indice+1, indice)
+        empilha(baralho, indice, indice-1)
 
         for n, carta in enumerate(baralho):
             k = n+1
@@ -132,11 +132,11 @@ while len(baralho) > 1 and possui_movimentos_possiveis(baralho) != False:
                 print('\033[1;34;40m{0}.'.format(k),carta)
 
     elif verifica == [1,3]:
-        escolha = int(input('Sobre qual carta você quer empilhar o {0}?'.format(bind), 'Digite o número da carta: '))
+        escolha = int(input('Sobre qual carta você quer empilhar o {0}? Digite o número da carta: '.format(bind)))
         while escolha != indice or escolha != (indice-2):
             escolha = int(input('Carta inválida, digite novamente:'))
         if escolha == indice:
-            empilha(baralho, indice+1, indice)
+            empilha(baralho, indice, indice-1)
 
             for n, carta in enumerate(baralho):
                 k = n+1
@@ -160,5 +160,9 @@ while len(baralho) > 1 and possui_movimentos_possiveis(baralho) != False:
                     print('\033[1;32;40m{0}.'.format(k),carta)
                 elif carta[1] == '♠':
                     print('\033[1;34;40m{0}.'.format(k),carta)
+if len(baralho) == 1:
+    print('Parabéns! Você venceu!')
+elif possui_movimentos_possiveis(baralho) == False:
+    print('Você perdeu! ):')
 
         
