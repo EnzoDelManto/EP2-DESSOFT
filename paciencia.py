@@ -48,3 +48,12 @@ def empilha(lista, i_ori, i_des):
     lista.remove(lista[i_des])
     lista.insert(i_des, y)
     return lista
+
+def possui_movimentos_possiveis(baralho):
+    len_b = len(baralho)
+    while len_b > 0:
+        len_b -= 1
+        if lista_movimentos_possiveis(baralho, len_b) != []:
+            return True
+    else:
+        return False
