@@ -1,5 +1,5 @@
 import random
-
+import runpy
 #funções
 def cria_baralho():
     baralho = ['A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦']
@@ -61,23 +61,24 @@ def possui_movimentos_possiveis(baralho):
         return False
 
 #instruções paciência
-print("\033[1;32;40mPaciência Acordeão  ")
-print('')
-print('O objetivo deste jogo é colocar todas as cartas em uma mesma pilha.')
-print('')
-print('Existem apenas dois movimentos possíveis: ')
-print('')
-print('Empilhar uma carta sobre a carta imediatamente anterior ')
-print('Ou empilhar uma carta sobre a terceira carta anterior. ')
-print('')
-print('Para que um movimento possa ser realizado uma das duas condições abaixo deve ser atendida: ')
-print('')
-print('As duas cartas possuírem o mesmo valor')
-print('Ou as duas cartas possuírem o mesmo naipe. ')
-print('')
-print('Desde que alguma das condições acima seja satisfeita, qualquer carta pode ser movimentada.')
-print("Bom jogo!")
-print('')
+print('''\033[1;32;40mPaciência Acordeão
+
+O objetivo deste jogo é colocar todas as cartas em uma mesma pilha.
+
+Existem apenas dois movimentos possíveis:
+
+Empilhar uma carta sobre a carta imediatamente anterior  
+Ou empilhar uma carta sobre a terceira carta anterior. 
+
+Para que um movimento possa ser realizado uma das duas condições abaixo deve ser atendida: 
+
+As duas cartas possuírem o mesmo valor
+Ou as duas cartas possuírem o mesmo naipe.
+
+Desde que alguma das condições acima seja satisfeita, qualquer carta pode ser movimentada. 
+
+Bom jogo!
+''')
 
 #printar baralho
 baralho = cria_baralho()
@@ -133,7 +134,7 @@ while len(baralho) > 1 and possui_movimentos_possiveis(baralho) != False:
 
     elif verifica == [1,3]:
         escolha = int(input('Sobre qual carta você quer empilhar o {0}? Digite o número da carta: '.format(bind)))
-        while escolha != indice or escolha != (indice-2):
+        while escolha != indice or escolha != indice-2:
             escolha = int(input('Carta inválida, digite novamente:'))
         if escolha == indice:
             empilha(baralho, indice, indice-1)
@@ -162,7 +163,14 @@ while len(baralho) > 1 and possui_movimentos_possiveis(baralho) != False:
                     print('\033[1;34;40m{0}.'.format(k),carta)
 if len(baralho) == 1:
     print('Parabéns! Você venceu!')
+    restart = str(input('Quer jogar novamente?(s/n): '))
+    while restart == "s":
+        runpy.run_path("paciencia.py")
+
 elif possui_movimentos_possiveis(baralho) == False:
     print('Você perdeu! ):')
+    restart = str(input('Quer jogar novamente?(s/n): '))
+    while restart == "s":
+        runpy.run_path("paciencia.py")
 
         
