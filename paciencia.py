@@ -82,76 +82,40 @@ Desde que alguma das condições acima seja satisfeita, qualquer carta pode ser 
 Bom jogo!
 ''')
 
+jogo_ativo = True
+while jogo_ativo:
 #CRIAR BARALHO ALEATÓRIO
-baralho = cria_baralho()
-for n, carta in enumerate(baralho):
-    k = n+1
-    if extrai_naipe(carta) == '♥':
-        print('\033[1;31;40m{0}.'.format(k),carta)
-    elif extrai_naipe(carta) == '♦':
-        print('\033[1;35;40m{0}.'.format(k),carta)
-    elif extrai_naipe(carta) == '♣':
-        print('\033[1;32;40m{0}.'.format(k),carta)
-    elif extrai_naipe(carta) == '♠':
-        print('\033[1;34;40m{0}.'.format(k),carta)
+    baralho = cria_baralho()
+    for n, carta in enumerate(baralho):
+        k = n+1
+        if extrai_naipe(carta) == '♥':
+            print('\033[1;31;40m{0}.'.format(k),carta)
+        elif extrai_naipe(carta) == '♦':
+            print('\033[1;35;40m{0}.'.format(k),carta)
+        elif extrai_naipe(carta) == '♣':
+            print('\033[1;32;40m{0}.'.format(k),carta)
+        elif extrai_naipe(carta) == '♠':
+            print('\033[1;34;40m{0}.'.format(k),carta)
 
-#ESCOLHER CARTA
-while len(baralho) > 1 and possui_movimentos_possiveis(baralho) != False:
-    escolha_carta = int(input('\033[1;37;40mDigite o número da carta desejada:(1 a {0}):'.format(len(baralho))))
+    #ESCOLHER CARTA
+    while len(baralho) > 1 and possui_movimentos_possiveis(baralho) != False:
+        escolha_carta = int(input('\033[1;37;40mDigite o número da carta desejada:(1 a {0}):'.format(len(baralho))))
 
 #SE O NÚMERO DA CARTA FOR INVÁLIDO
-    while escolha_carta > len(baralho) or escolha_carta < 1:
-        escolha_carta = int(input('\033[1;37;40mDigite o número de uma carta válida(1 a {0}):'.format(len(baralho))))
-    indice = escolha_carta-1
-    verifica = lista_movimentos_possiveis(baralho,indice)
-    bind = baralho[indice]
+        while escolha_carta > len(baralho) or escolha_carta < 1:
+            escolha_carta = int(input('\033[1;37;40mDigite o número de uma carta válida(1 a {0}):'.format(len(baralho))))
+        indice = escolha_carta-1
+        verifica = lista_movimentos_possiveis(baralho,indice)
+        bind = baralho[indice]
 
 #SE A CARTA NÃO PUDER SE MOVER
-    while verifica == []:
-        reescolher = int(input('Essa carta não pode se mover. Escolha outra: '))
-        indice2 = reescolher-1
-        verifica = lista_movimentos_possiveis(baralho,indice2)
+        while verifica == []:
+            reescolher = int(input('Essa carta não pode se mover. Escolha outra: '))
+            indice2 = reescolher-1
+            verifica = lista_movimentos_possiveis(baralho,indice2)
 
 #SE A CARTA SOMENTE PUDER EMPILHAR NO VIZINHO IMEDIATAMENTE ANTERIOR
-    if verifica == [1]:
-        empilha(baralho, indice, indice-1)
-
-        for n, carta in enumerate(baralho):
-            k = n+1
-            if extrai_naipe(carta) == '♥':
-                print('\033[1;31;40m{0}.'.format(k),carta)
-            elif extrai_naipe(carta) == '♦':
-                print('\033[1;35;40m{0}.'.format(k),carta)
-            elif extrai_naipe(carta) == '♣':
-                print('\033[1;32;40m{0}.'.format(k),carta)
-            elif extrai_naipe(carta) == '♠':
-                print('\033[1;34;40m{0}.'.format(k),carta)
-
-#SE A CARTA SOMENTE PUDER EMPILHAR NO TERCEIRO VIZINHO ANTERIOR
-    elif verifica == [3]:
-        empilha(baralho, indice, indice-3)
-
-        for n, carta in enumerate(baralho):
-            k = n+1
-            if extrai_naipe(carta) == '♥':
-                print('\033[1;31;40m{0}.'.format(k),carta)
-            elif extrai_naipe(carta) == '♦':
-                print('\033[1;35;40m{0}.'.format(k),carta)
-            elif extrai_naipe(carta) == '♣':
-                print('\033[1;32;40m{0}.'.format(k),carta)
-            elif extrai_naipe(carta) == '♠':
-                print('\033[1;34;40m{0}.'.format(k),carta)
-
-#SE A CARTA SOMENTE PUDER EMPILHAR EM AMBOS
-    elif verifica == [1,3]:
-        escolha = int(input('Sobre qual carta você quer empilhar o {0}? Digite o número da carta: '.format(bind)))
-
-#SE A CARTA ESCOLHIDA FOR INVÁLIDA
-        while escolha != indice and escolha != indice-2:
-            escolha = int(input('Carta inválida, digite novamente:'))
-
-#SE O USUÁRIO ESCOLHER O VIZINHO IMEDIATAMENTE ANTERIOR
-        if escolha == indice:
+        if verifica == [1]:
             empilha(baralho, indice, indice-1)
 
             for n, carta in enumerate(baralho):
@@ -165,9 +129,10 @@ while len(baralho) > 1 and possui_movimentos_possiveis(baralho) != False:
                 elif extrai_naipe(carta) == '♠':
                     print('\033[1;34;40m{0}.'.format(k),carta)
 
-#SE O USUÁRIO ESCOLHER O TERCEIRO VIZINHO ANTERIOR
-        elif escolha == indice-2:
+#SE A CARTA SOMENTE PUDER EMPILHAR NO TERCEIRO VIZINHO ANTERIOR
+        elif verifica == [3]:
             empilha(baralho, indice, indice-3)
+
             for n, carta in enumerate(baralho):
                 k = n+1
                 if extrai_naipe(carta) == '♥':
@@ -179,17 +144,59 @@ while len(baralho) > 1 and possui_movimentos_possiveis(baralho) != False:
                 elif extrai_naipe(carta) == '♠':
                     print('\033[1;34;40m{0}.'.format(k),carta)
 
+#SE A CARTA SOMENTE PUDER EMPILHAR EM AMBOS
+        elif verifica == [1,3]:
+            escolha = int(input('Sobre qual carta você quer empilhar o {0}? Digite o número da carta: '.format(bind)))
+
+#SE A CARTA ESCOLHIDA FOR INVÁLIDA
+            while escolha != indice and escolha != indice-2:
+                escolha = int(input('Carta inválida, digite novamente:'))
+
+#SE O USUÁRIO ESCOLHER O VIZINHO IMEDIATAMENTE ANTERIOR
+            if escolha == indice:
+                empilha(baralho, indice, indice-1)
+
+                for n, carta in enumerate(baralho):
+                    k = n+1
+                    if extrai_naipe(carta) == '♥':
+                        print('\033[1;31;40m{0}.'.format(k),carta)
+                    elif extrai_naipe(carta) == '♦':
+                        print('\033[1;35;40m{0}.'.format(k),carta)
+                    elif extrai_naipe(carta) == '♣':
+                        print('\033[1;32;40m{0}.'.format(k),carta)
+                    elif extrai_naipe(carta) == '♠':
+                        print('\033[1;34;40m{0}.'.format(k),carta)
+
+#SE O USUÁRIO ESCOLHER O TERCEIRO VIZINHO ANTERIOR
+            elif escolha == indice-2:
+                empilha(baralho, indice, indice-3)
+                for n, carta in enumerate(baralho):
+                    k = n+1
+                    if extrai_naipe(carta) == '♥':
+                        print('\033[1;31;40m{0}.'.format(k),carta)
+                    elif extrai_naipe(carta) == '♦':
+                        print('\033[1;35;40m{0}.'.format(k),carta)
+                    elif extrai_naipe(carta) == '♣':
+                        print('\033[1;32;40m{0}.'.format(k),carta)
+                    elif extrai_naipe(carta) == '♠':
+                        print('\033[1;34;40m{0}.'.format(k),carta)
+
 #GANHOU O JOGO
-if len(baralho) == 1:
-    print('Parabéns! Você venceu!')
+    if len(baralho) == 1:
+        print('Parabéns! Você venceu!')
+        jogo_ativo = False
 
 #PERDEU O JOGO
-elif possui_movimentos_possiveis(baralho) == False:
-    print('Você perdeu! ):')
+    elif possui_movimentos_possiveis(baralho) == False:
+        print('Você perdeu! ):')
+        jogo_ativo = False
 
 #JOGAR NOVAMENTE?
-restart = str(input('Quer jogar novamente?(s/n): '))
-if restart == "s":
-    runpy.run_path("paciencia.py")
-else:
-    print('Até mais')
+    restart = str(input('Quer jogar novamente?(s/n): '))
+    if restart == "s":
+        jogo_ativo = True
+    elif restart == "n":
+        print('Até mais!')
+        jogo_ativo = False
+    else:
+        str(input('Resposta inválida, digite novamente(s/n)'))
