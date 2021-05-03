@@ -193,7 +193,7 @@ while jogo_ativo:
 
 #JOGAR NOVAMENTE?
     restart = str(input('Quer jogar novamente?(s/n): '))
-    while restart != 's' or restart !- 'n':
+    while restart != 's' and restart != 'n':
         restart = str(input('Resposta inválida, digite novamente(s/n)'))
     if restart == "s":
         jogo_ativo = True
